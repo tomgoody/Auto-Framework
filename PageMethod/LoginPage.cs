@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
-using NvendorPOM.Config;
+using vendorPOM.Config;
 using OpenQA.Selenium;
 
 
-namespace NvendorPOM.PageMethod
+namespace vendorPOM.PageMethod
 {
      class LoginPage
     {
@@ -17,7 +17,7 @@ namespace NvendorPOM.PageMethod
         string password = "password";
         string institutions = _configuration[Configuration.EnvConfig + ":Institution"];
         string appPicker = "[alt='Applications']";
-        string product = "[alt='Nvendor']";
+        string product = "[alt='vendor']";
         string productLogo = "[full-name='vendormanager.contractmanager']";
 
 

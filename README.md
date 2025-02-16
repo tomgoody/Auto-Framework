@@ -14,7 +14,7 @@ The appsettings.json is where all the environmental variables are contained.  It
 Within the Configuration Folder is 2 files: Configuration.cs and ExtentManager.cs
 The Configuration.cs file collects the variables from the appsettings.json file at startup.  This sets the environment the tests will be run, the login credentials, and environment specific variables. 
 
-The ExtentManager.cs file collects the results of the test and compiles them into one report at the end.  Without this file to amend each test results to a single extent report each test run will create a new extent report upon completion and in some cases overwrite previous results. 
+The ExtentManager.cs file collects the results of the test and compiles them into one report at the end.  
 
 *PageMethods Folder*
 

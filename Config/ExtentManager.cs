@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestPlatform.PlatformAbstractions.Interfaces;
 using System;
 
-namespace NvendorPOM.Config
+namespace vendorPOM.Config
 {
     public  class ExtentManager
     {

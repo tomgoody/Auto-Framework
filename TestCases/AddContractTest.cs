@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using NvendorPOM.PageMethod;
+using vendorPOM.PageMethod;
 using OpenQA.Selenium;
-using NvendorPOM.Config;
+using vendorPOM.Config;
 
 using System;
 using System.Collections.Generic;
@@ -10,10 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework.Legacy;
 using AventStack.ExtentReports;
-using NvendorPOM.PageMethod.Nvendor;
+using vendorPOM.PageMethod.vendor;
 //using DescriptionAttribute = NUnit.Framework.DescriptionAttribute;
 
-namespace NvendorPOM.TestCases
+namespace vendorPOM.TestCases
 {
     [TestFixture]
     public class AddContractTest : Configuration

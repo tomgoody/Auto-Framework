@@ -9,12 +9,12 @@ using OpenQA.Selenium.Remote;
 using System;
 using TestContext = NUnit.Framework.TestContext;
 
-namespace NvendorPOM.Config
+namespace vendorPOM.Config
 {
     [SetUpFixture]
     public abstract class Configuration
     {
-        public static string EnvConfig = "F05-settings";
+        public static string EnvConfig = "F-settings";
 
         string environment = _configuration[Configuration.EnvConfig + ":Environment"];
         string user = _configuration[Configuration.EnvConfig + ":Username"];

@@ -1,17 +1,17 @@
 ﻿using NUnit.Framework;
-using NvendorPOM.PageMethod;
+using vendorPOM.PageMethod;
 using OpenQA.Selenium;
-using NvendorPOM.Config;
+using vendorPOM.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework.Legacy;
-using NvendorPOM.PageMethod.Nvendor;
+using vendorPOM.PageMethod.vendor;
 
 
-namespace NvendorPOM.TestCases
+namespace vendorPOM.TestCases
 {
     [TestFixture]
     internal class EditContractTests : Configuration

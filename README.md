@@ -1,8 +1,9 @@
 Basic framework to illustrate how to setup Selenium and Extent Reports using the Page Object Model(POM) in a C# environment.
-_
+
+
 The Automation-Cookbook folder is not used for running the code and is only included as a reference for how making the code more extensible was solved. 
 
-In a C# environment, import the Config, PageMethods, and TestCases folders as well as the appsettings.json file. _
+In a C# environment, import the Config, PageMethods, and TestCases folders as well as the appsettings.json file. 
 
 *appsettings.json file*
 The appsettings.json is where all the environmental variables are contained.  It can contain the variables for multiple environments allowing for changing environnments to be completed quickly or a new environment to be added easier. 

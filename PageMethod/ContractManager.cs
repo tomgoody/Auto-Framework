@@ -1,12 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
-using NvendorPOM.Config;
+using vendorPOM.Config;
 using OpenQA.Selenium;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using AventStack.ExtentReports;
 //using Assert = NUnit.Framework.Assert;
 
-namespace NvendorPOM.PageMethod
+
+//Thread.Sleep was used in place of waiting for page loads because they were more reliable.
+namespace vendorPOM.PageMethod
 {
     class ContractManager
     {

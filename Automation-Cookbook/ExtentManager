@@ -1,0 +1,59 @@
+// Helper to add all tests in a run be added to one Extent Report at the completion of the run
+
+using AventStack.ExtentReports;
+using AventStack.ExtentReports;
+using AventStack.ExtentReports.Reporter;
+using Microsoft.Extensions.Configuration;
+using Microsoft.VisualStudio.TestPlatform.PlatformAbstractions.Interfaces;
+using System;
+
+namespace vendorPOM.Config
+{
+
+    //This Class is used to include the results of all tests in one file. Without it, the file will overwrite after each one leaving only the results of the final test.
+    public  class ExtentManager
+    {
+        private static ExtentReports extent;
+        private static ExtentTest test;
+        private static ExtentSparkReporter htmlReporter;
+
+        public static ExtentReports GetExtent()
+        {
+            if (extent == null)
+            {
+                DateTime time = DateTime.Now;
+                var path = System.Reflection.Assembly.GetCallingAssembly().CodeBase;
+                var actualPath = path.Substring(0, path.LastIndexOf("bin"));
+                var projectPath = new Uri(actualPath).LocalPath;
+                Directory.CreateDirectory(projectPath.ToString() + "Reports");
+                var reportPath = projectPath + "Reports\\ExtentReport" + time.ToString("yyyy-MM-dd-HH-mm-ss") + ".html";
+
+                extent = new ExtentReports();
+                htmlReporter = new ExtentSparkReporter(reportPath);
+                extent.AttachReporter(htmlReporter);
+
+            }
+            return extent;
+
+        }
+
+        public static ExtentReports getInstance()
+        {
+            return GetExtent();
+        }
+
+        public static ExtentTest CreateTest(String name, String category)
+        {
+            test = extent.CreateTest(name, category);
+            return test;
+        }
+        public static ExtentTest CreateTest(String name)
+        {
+            test = extent.CreateTest(name);
+            return test;
+        }
+
+
+    }
+    
+}

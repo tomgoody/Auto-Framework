@@ -1,0 +1,128 @@
+
+// Identifying if a list of Elements are available on the page
+List<IWebElement> e = new List<IWebElement>();
+e.AddRange(driver.FindElements(By.Xpath(*Xpath-Location1*)));
+e.AddRange(driver.FindElements(By.Xpath(*Xpath-Location2*)));
+if (e.Count > 1)
+{
+    return;
+} else {
+Assert.Fail();
+}
+
+//Nested For Loop to cycle through rows on a table to find a record then click it.
+            bool docfound = false;
+
+                IList<IWebElement> Table_Rows = driver.FindElements(By.XPath("//td[@class='dx-wrap dxgv']"));
+                int rowCount = Table_Rows.Count;
+                for (int i = 0; i < Table_Rows.Count && !docfound; i++)
+                {
+                    IList<IWebElement> cell = Table_Rows[i].FindElements(By.TagName("a"));
+
+                    for (int z = 0; z < 1; z++)
+                    {
+                        string cellText = cell[z].GetAttribute("innerHTML");
+                        Console.WriteLine(cellText);
+
+                        if (cellText.Contains(docName))
+                        {
+                            Console.WriteLine(cellText);
+                            try
+                            {
+                                Table_Rows[i].FindElement(By.TagName("a")).Click();
+                                docfound = true;
+                                break;
+                            }
+                            catch (OpenQA.Selenium.StaleElementReferenceException ex)
+                            {
+                                Table_Rows[i].FindElement(By.TagName("a")).Click();
+                            docfound = true;
+                            break;
+                            }
+                        }
+                    }
+                }
+
+//Extract URL from iFrame within an iFrame
+driver.SwitchTo().DefaultContent();
+IWebElement frame = driver.FindElement(By.ClassName("iframeit"));
+string embeddedURL = frame.GetAttribute("baseURI");
+driver.SwitchTo().NewWindow(WindowType.Tab);
+driver.Navigate().GoToUrl(embeddedURL);
+driver.SwitchTo().Frame(driver.FindElement(By.ClassName("iframeit")));
+
+// Select a random Web Element from a list on each execution
+List<string> Report = new List<string>();
+//Web Elements are stored as strings at beginning of class file based on POM standard
+Report.Add(Web_Element1);
+Report.Add(Web_Element2);
+Random randNum = new Random();
+int aRandomPos = randNum.Next(Report.Count);
+string currName = Report[aRandomPos];
+//The first part of the Web Element is stored as a string and passed then the unique identifier from the list is added.  Finally, the closing of Web Elemetn is added
+IWebElement reportClick = driver.FindElement(By.XPath(BeginningOfElement + currName + "']"));
+reportClick.Click();
+
+//Adding screenshots to Extent Report
+    public void AfterTest()
+    {
+        DateTime time = DateTime.Now;
+        string fileName = "Screenshot_" + time.ToString("h_mm_ss") + ".jpg";
+        string screenShotPath = Capture(_driver, fileName);
+        var status = TestContext.CurrentContext.Result.Outcome.Status;
+        var stacktrace = string.IsNullOrEmpty(TestContext.CurrentContext.Result.StackTrace) ? " " : string.Format("{0}", TestContext.CurrentContext.Result.StackTrace);
+        Status logstatus;
+        switch (status)
+        {
+            case TestStatus.Failed:
+                logstatus = Status.Fail;
+                test.Log(Status.Fail, "Fail");
+                test.Log(Status.Fail, "Snapshot below: " + test.AddScreenCaptureFromPath("Screenshots\\" + fileName));
+
+                break;
+            case TestStatus.Inconclusive:
+                logstatus = Status.Warning;
+                break;
+            case TestStatus.Skipped:
+                logstatus = Status.Skip;
+                break;
+            default:
+                logstatus = Status.Pass;
+                test.Log(Status.Pass, "Pass");
+               test.Log(Status.Pass, "Snapshot below: " + test.AddScreenCaptureFromPath("Screenshots\\" + fileName));
+                break;
+        }
+        test.Log(logstatus, "Test ended with " + logstatus + stacktrace);
+        extent.Flush();
+
+//Method to take screenshots passed 
+        public static string Capture(IWebDriver driver, string screenShotName)
+        {
+            Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
+            string pth = System.Reflection.Assembly.GetCallingAssembly().CodeBase;
+            string finalpth = pth.Substring(0, pth.LastIndexOf("bin")) + "Reports\\Screenshots\\" + screenShotName;
+            string localpath = new Uri(finalpth).LocalPath;
+            ss.SaveAsFile(localpath);
+            return localpath;
+
+        }
+
+//Implement ExtentManager in Config file for use.
+        [OneTimeSetUp]
+        protected void OneTimeSetup()
+        {
+            extent = ExtentManager.getInstance();
+        }
+
+        [SetUp]
+        public void Setup()
+        {
+            extent = ExtentManager.getInstance();
+
+            test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
+            // Add categories to the ExtentTest
+            var categories = TestContext.CurrentContext.Test.Properties["Category"];
+            foreach (var category in categories)
+            {
+                test.AssignCategory(category.ToString());
+            }

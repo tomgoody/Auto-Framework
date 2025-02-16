@@ -1,0 +1,3 @@
+//Dropdown continues to close when trying to locate an element. 
+In Chrome under DevTools > Event Listeners look for "blur" and "focusout" if there are any listeners within these remove them. Then try and interact with dropdown again.
+

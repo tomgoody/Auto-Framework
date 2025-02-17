@@ -114,25 +114,23 @@ namespace vendorPOM.PageMethod
             AddContract.Click();
             Thread.Sleep(3000);
 
-            //IWebElement browseContract = driver.FindElement(By.CssSelector(browseBtn));
-            //browseContract.Click();
-            Thread.Sleep(2000);
 
-            // Execute the AutoIt script to handle the file dialog
-            //Process process = new Process();
-            //process.StartInfo.FileName = @"Contracts\contractUpload.exe";
-            //process.Start();
+            //Randomly selects a document from a folder each time the test runs so that the same document isn't used every time. 
+            //Add additional docs to Contracts folder then copy "Docs.Add();" line and enter in the new file name
+            List<string> Docs = new List<string>();
+            Docs.Add("Contracts\\182.docx");
+            Docs.Add("Contracts\\2words114pages.docx");
+            Random randNum = new Random();
+            int aRandomPos = randNum.Next(Docs.Count);
+            string currDoc = Docs[aRandomPos];
 
-
-            //// Wait for the process to complete
-            //process.WaitForExit();
 
             IWebElement fileInput = driver.FindElement(By.CssSelector(fileUpload));
 
             var path = System.Reflection.Assembly.GetCallingAssembly().CodeBase;
             var actualPath = path.Substring(0, path.LastIndexOf("bin"));
             var projectPath = new Uri(actualPath).LocalPath;
-            var contractPath = projectPath + "Contracts\\182.docx";
+            var contractPath = projectPath + currDoc;
 
             fileInput.SendKeys(contractPath.ToString());
             Thread.Sleep(3000);
